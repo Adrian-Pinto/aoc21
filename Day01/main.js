@@ -1,9 +1,10 @@
 const { readFileSync } = require('fs');
+const { stdout: output } = require('process');
 
-const input = readFileSync(process.argv[2]).toString().split('\n');
+const mesures = readFileSync(process.argv[2]).toString().split('\n');
 
-const result = input.reduceRight((amount, mesure, i) => (
-  i && amount + Number.parseInt(mesure / input[i - 1], 10)) || amount, 0);
+const result = mesures.reduceRight((amount, mesure, i) => (
+  i && amount + Number.parseInt(mesure / mesures[i - 1], 10)) || amount, 0);
 
-console.clear();
-console.log(`La cantidad de medidas que incrementan es: ${result}`);
+output.write('\x1Bc');
+output.write(`Number of times mesures increases is: ${result}\n`);
