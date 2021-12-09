@@ -11,6 +11,10 @@
         "sourceType": "module"
     },
     "rules": {
-      "no-console": 0
+      "no-console": 0,
+      "no-extend-native": 0,
+      "import/extensions": [{
+        "mjs": "never"
+      }]
     }
 }
