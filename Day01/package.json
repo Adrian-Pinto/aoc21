@@ -12,5 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3"
   }
 }
