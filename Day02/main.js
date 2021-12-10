@@ -8,15 +8,18 @@ const commandProcessor = {
   forward: (data, x) => {
     const temp = { ...data };
     temp.horPos += parseInt(x, 10);
+    // todo - temp.depPos += aim * x
     return temp;
   },
   up: (data, x) => {
     const temp = { ...data };
+    // todo - change .depPos to .aim
     temp.depPos -= parseInt(x, 10);
     return temp;
   },
   down: (data, x) => {
     const temp = { ...data };
+    // todo - change .depPos to .aim
     temp.depPos += parseInt(x, 10);
     return temp;
   },
@@ -29,6 +32,7 @@ const { horPos, depPos } = commands.reduce(
   {
     horPos: 0,
     depPos: 0,
+    // todo - aim: 0,
   },
 );
 
