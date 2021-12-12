@@ -1,18 +1,15 @@
-// importar input
-// .toString
-// .split(\n)
+import { readFileSync } from 'fs';
+import { stdout } from 'process';
 
-// estados { media: inputLength / 2 }
+const input = readFileSync(process.argv[2]).toString().split('\n');
+const media = input.length / 2;
+const gamma = input
+  .reduce(
+    (acc, value) => (value ? value.split('').map((digit, i) => (acc[i] === undefined ? digit : +acc[i] + +digit)) : acc),
+  ).map((value) => (value > media ? 1 : 0))
+  .join('');
 
-// gamma = input.reduce( (gamma, input) =>
-// input.split('').map((input, i) => parseInt(input) + gamma[i] )
-// ,[] )
-// .map((value) => value > media ? 1 : 0 )
-// .joint('')
+const epsilon = gamma.split('').map((value) => (+value ? 0 : 1)).join('');
 
-// epsilon = gamma.split('').map((value) => parseInt(value, 2) ? 0 : 1  ).join('')
-
-// ! si sumo todos los bits positivos y son mayor a la mitad de filas
-// ! el promedio sera positivo si no es negativo
-
-// stdout >> ("0b"+gamma) * ("0b"+epsilon)
+stdout.write('\x1Bc');
+stdout.write(`Power consumption: ${`0b${gamma}` * `0b${epsilon}`}\n`);
