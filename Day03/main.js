@@ -1,18 +1,31 @@
-// importar input
-// .toString
-// .split(\n)
+import { readFileSync } from 'fs';
+import { stdout } from 'process';
 
-// estados { media: inputLength / 2 }
+const input = readFileSync(process.argv[2]).toString().split('\n');
 
-// gamma = input.reduce( (gamma, input) =>
-// input.split('').map((input, i) => parseInt(input) + gamma[i] )
-// ,[] )
-// .map((value) => value > media ? 1 : 0 )
-// .joint('')
+const commonBit = (data, x = 1) => {
+  const media = data.length / 2;
+  return data.reduce(
+    (acc, value) => (value ? value.split('')
+      .map((digit, i) => (acc[i] === undefined ? digit : +acc[i] + +digit)) : acc),
+  ).map((value) => {
+    if (!x) return value < media ? 1 : value === media ? x : 0;
+    return value > media ? 1 : value === media ? x : 0;
+  }).join('');
+};
 
-// epsilon = gamma.split('').map((value) => parseInt(value, 2) ? 0 : 1  ).join('')
+const calculateRating = (data, x, bit = 0) => {
+  const media = commonBit(data, x);
+  const result = data.filter((value) => (value[bit] === media[bit]));
+  if (result.length === 1) return result;
+  return calculateRating(result, x, bit + 1);
+};
 
-// ! si sumo todos los bits positivos y son mayor a la mitad de filas
-// ! el promedio sera positivo si no es negativo
+const gamma = commonBit(input);
+const epsilon = gamma.split('').map((value) => (+value ? 0 : 1)).join('');
+const [oxygen] = calculateRating(input, 1);
+const [coTwo] = calculateRating(input, 0);
 
-// stdout >> ("0b"+gamma) * ("0b"+epsilon)
+stdout.write('\x1Bc');
+stdout.write(`Power consumption: ${`0b${gamma}` * `0b${epsilon}`}\n`);
+stdout.write(`Life support rating: ${`0b${oxygen}` * `0b${coTwo}`}\n`);
