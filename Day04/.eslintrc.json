@@ -12,6 +12,9 @@
     },
     "rules": {
       "no-console": 0,
-      "no-extend-native": 0
+      "no-extend-native": 0,
+      "import/extensions": [0, {
+        "js": "never"
+      }]
     }
 }
