@@ -1,21 +1,27 @@
 export default (randomNumbers, bingoCards) => {
   let score;
   for (const randomNum of randomNumbers) {
-    let winnerCard;
-    for (const [cardI, card] of bingoCards.entries()) {
-      card.forEach((row) => {
-        const matchIndex = row.indexOf(randomNum);
-        if (matchIndex !== -1) row.splice(matchIndex, 1);
+    let winCard;
+    if (!winCard) {
+      bingoCards.forEach((card) => {
+        card.forEach((row) => {
+          const matchIndex = row.indexOf(randomNum);
+          if (matchIndex !== -1) row.splice(matchIndex, 1);
+        });
       });
-      if (card.some((row) => !row.length)) {
-        winnerCard = bingoCards[cardI]
-          .slice(0, 5)
-          .flat()
-          .reduce((sum, number) => +sum + +number, 0);
-        break;
-      }
+      bingoCards.forEach((card) => {
+        if (card.some((row) => !row.length)) {
+          const delIndex = bingoCards.findIndex((dcard) => dcard === card);
+          const delCard = bingoCards.splice(delIndex, 1);
+          if (bingoCards.length === 1) winCard = [...delCard];
+        }
+      });
     }
-    if (winnerCard) {
+    if (winCard) {
+      const winnerCard = winCard[0]
+        .slice(0, 5)
+        .flat()
+        .reduce((sum, number) => +sum + +number, 0);
       score = randomNum * winnerCard;
       break;
     }
