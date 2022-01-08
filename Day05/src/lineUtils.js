@@ -9,12 +9,12 @@ const genLineCoors = ([a, b], axis) => {
   const newCoors = [];
   if (axis) {
     for (let i = a[1]; i <= b[1]; i++) {
-      newCoors.push([a[0], i]);
+      newCoors.push([a[0], i].join(','));
     }
   }
   if (!axis) {
     for (let i = a[0]; i <= b[0]; i++) {
-      newCoors.push([i, a[1]]);
+      newCoors.push([i, a[1]].join(','));
     }
   }
   return newCoors;
