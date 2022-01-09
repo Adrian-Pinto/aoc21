@@ -21,15 +21,14 @@ const genLineCoors = ([a, b], axis) => {
 };
 
 export default (coorSet) => {
-  const result = coorSet.map((set) => {
-    let or;
-    if (set.length === 2 && set[0][0] !== set[1][0]) {
-      or = genLineCoors(sortCoor(set, 0), 0);
+  const or = [];
+  coorSet.forEach(([pointA, pointB]) => {
+    if (pointA[1] === pointB[1] && pointA[0] !== pointB[0]) {
+      or.push(genLineCoors(sortCoor([pointA, pointB], 0), 0));
     }
-    if (set.length === 2 && set[0][1] !== set[1][1]) {
-      or = genLineCoors(sortCoor(set, 1), 1);
+    if (pointA[0] === pointB[0] && pointA[1] !== pointB[1]) {
+      or.push(genLineCoors(sortCoor([pointA, pointB], 1), 1));
     }
-    return or;
   });
-  return result;
+  return or;
 };
