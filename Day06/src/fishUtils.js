@@ -14,6 +14,6 @@ export default (days, sample) => {
     sampleCopy = rotateFish(sampleCopy, sampleCopy[0]);
   }
   stdout.write('\x1Bc');
-  stdout.write(`Total de peces ${sampleCopy.reduce((result, fish) => result + fish)}\n`);
+  stdout.write(`After ${days} days, there are ${sampleCopy.reduce((result, fish) => result + fish)} lanterfish.\n`);
   exit(0);
 };
