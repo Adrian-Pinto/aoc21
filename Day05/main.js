@@ -17,7 +17,7 @@ const input = genLineCoors(
 const paintPoints = (pointSets) => {
   const matrix = {};
   pointSets.forEach((set) => {
-    matrix[set] = matrix[set] ? matrix[set] += 1 : matrix[set] = 1;
+    matrix[set] = matrix[set] ? matrix[set] + 1 : 1;
   });
   return Object.entries(matrix);
 };
