@@ -1,15 +1,48 @@
 import { readFileSync } from 'fs';
-import { stdout, argv } from 'process';
+import {
+  stdin as input,
+  stdout as output,
+  argv,
+  exit,
+} from 'process';
+import readline from 'readline';
 
-const [, , rawInput] = argv;
+const [, , rawSample] = argv;
 
-const input = readFileSync(rawInput).toString();
+const rl = readline.createInterface({ input, output });
 
-console.log(input);
+const fishSample = readFileSync(rawSample).toString().split(',')
+  .reduce((fishDays, fish) => {
+    const accCopy = [...fishDays];
+    accCopy[fish] = accCopy[fish] ? accCopy[fish] + 1 : 1;
+    return accCopy;
+  }, [0, 0, 0, 0, 0, 0, 0, 0]);
 
-// enter cuantity of days
-//  make a loop for count to 0
-//  each loop makes counters =- 1
-//  each 0 add new counter starting by 8 and reset de actual counter to 6
+const fishCicle = (days, sample) => {
+  output.write('\x1Bc');
+  const fish = [...sample];
+  for (let i = 0; i < days; i++) {
+    // fish[0] <- cuantity of fish in 0
+    // rotateFishPos(fish, fish[0]) <- fish[0] is the new cuantity of fish[7]
+    // rotateFishPos -> all pos[i - 1]
+  }
+  console.log(fish);
+  exit(0);
+};
 
-// ? - separate fish by days x cuantity left instead of cuantity x days
+const init = () => {
+  output.write('\x1Bc');
+  rl.question(
+    'How many day cicles you want to calculate? (Push ESC to quit)\n',
+    (days) => (Number.parseInt(days, 10) && fishCicle(days, fishSample)) || init(),
+  );
+};
+
+input.on('keypress', (data, key) => {
+  if (key.name === 'escape') {
+    output.write('\x1Bc');
+    exit(0);
+  }
+});
+
+init();
