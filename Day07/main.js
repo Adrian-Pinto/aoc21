@@ -1,5 +1,6 @@
 import { readFileSync } from 'fs';
 import { stdout, argv } from 'process';
+import { calculateFuelCost, calculateMode } from './src/calcUtils.js';
 
 const [, , rawSample] = argv;
 
@@ -12,18 +13,9 @@ const positionFrequency = crabPositions
     return commonnessCopy;
   }, {});
 
-const mode = (data) => Number.parseInt(
-  Object
-    .entries(data)
-    .sort((a, b) => a[1] - b[1])
-    .pop().shift(),
-  10,
-);
+const mode = calculateMode(positionFrequency);
 
-console.log(`Mode: ${mode(positionFrequency)}`);
-console.log(positionFrequency);
+const totalFuelCost = calculateFuelCost(positionFrequency, mode);
 
-// input = hoz pos of each crab submarine
-// calculate the 'moda' on input values
-// forEach crap
-//  usedFuel = Math.abs(crapPos - 'moda')
+stdout.write('\x1Bc');
+stdout.write(`Least cuantity of fuel required: ${totalFuelCost}\n`);
