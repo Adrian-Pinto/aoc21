@@ -13,6 +13,7 @@ const positionFrequency = crabPositions
     return commonnessCopy;
   }, {});
 
+// ! - calculate median instead of mode
 const mode = calculateMode(positionFrequency);
 
 const totalFuelCost = calculateFuelCost(positionFrequency, mode);
