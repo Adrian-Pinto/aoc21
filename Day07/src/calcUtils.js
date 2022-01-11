@@ -3,17 +3,11 @@ const calculateFuelCost = (dataSample, destiny) => Object.entries(dataSample)
     fuelAmount + Math.abs(position - destiny) * frequency
   ), 0);
 
-// ! need to calculate median
-// median = 331
-const calculateMode = (data) => Number.parseInt(
-  Object
-    .entries(data)
-    .sort((a, b) => a[1] - b[1])
-    .pop().shift(),
-  10,
-);
+const calculateMedian = (data) => (Number.isSafeInteger(data.length)
+  ? +data[data.length / 2]
+  : (+data[data.length / 2 - 1] + +data[data.length / 2]) / 2);
 
 export {
   calculateFuelCost,
-  calculateMode,
+  calculateMedian,
 };
