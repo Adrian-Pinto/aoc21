@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 import { stdout, argv } from 'process';
-import { calculateFuelCost, calculateMedian } from './src/calcUtils.js';
+import { calculateFuelCost, calculateMedia } from './src/calcUtils.js';
 
 const [, , rawSample] = argv;
 
@@ -17,9 +17,9 @@ const positionFrequency = crabPositions
     return commonnessCopy;
   }, {});
 
-const median = calculateMedian(crabPositions);
+const media = calculateMedia(crabPositions);
 
-const totalFuelCost = calculateFuelCost(positionFrequency, median);
+const totalFuelCost = calculateFuelCost(positionFrequency, media);
 
 stdout.write('\x1Bc');
 stdout.write(`Least cuantity of fuel required: ${totalFuelCost}\n`);
